@@ -1,9 +1,11 @@
 plugins {
-    id 'com.android.application' version '8.5.2'
+    id 'com.android.application'
 }
+
 android {
     namespace 'fr.belperfauto.app'
     compileSdk 35
+
     defaultConfig {
         applicationId 'fr.belperfauto.app'
         minSdk 24
