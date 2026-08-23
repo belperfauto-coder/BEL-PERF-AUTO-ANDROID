@@ -1,1 +1,3 @@
-<resources><string name="app_name">BEL-PERF'AUTO</string></resources>
+<resources>
+    <string name="app_name">BEL-PERF\'AUTO</string>
+</resources>
