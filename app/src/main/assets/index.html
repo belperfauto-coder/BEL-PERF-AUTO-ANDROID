@@ -1,53 +1,56 @@
 from pathlib import Path
 
-html = """<!doctype html>
+html = r'''<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>BEL-PERF'AUTO V3</title>
+<title>BEL-PERF'AUTO V3.1</title>
 <style>
-:root{--bg:#f4f5f7;--card:#fff;--ink:#111;--muted:#6b7280;--accent:#d71920;--line:#e5e7eb;--green:#16733a;--blue:#2457a7}
+:root{--bg:#f4f5f7;--card:#fff;--ink:#111;--muted:#6b7280;--accent:#d71920;--line:#e5e7eb;--green:#16733a;--blue:#2457a7;--amber:#a66a00}
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:#111;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
 .brand{font-size:22px;font-weight:900}.sub{font-size:12px;color:#ccc}
-main{max-width:1050px;margin:auto;padding:12px}
+main{max-width:1100px;margin:auto;padding:12px}
 nav{display:flex;gap:7px;overflow:auto;padding-bottom:12px}
 nav button{border:0;border-radius:999px;padding:10px 13px;background:#ddd;font-weight:800;white-space:nowrap}
 nav button.active{background:var(--accent);color:#fff}
 .card{background:#fff;padding:15px;border-radius:16px;margin-bottom:12px;box-shadow:0 2px 12px #00000010}
 h2{font-size:18px;margin:0 0 12px}.muted{font-size:13px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 label{display:block;font-size:13px;font-weight:800;margin:10px 0 5px}
 input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:16px}
 textarea{min-height:80px}
 .btn{width:100%;padding:12px;border:0;border-radius:10px;font-size:15px;font-weight:900;background:var(--accent);color:#fff;margin-top:10px}
-.btn.dark{background:#222}.btn.light{background:#ececec;color:#111}.btn.green{background:var(--green)}.btn.blue{background:var(--blue)}
+.btn.dark{background:#222}.btn.light{background:#ececec;color:#111}.btn.green{background:var(--green)}.btn.blue{background:var(--blue)}.btn.amber{background:var(--amber)}
 .rowBtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.rowBtns .btn{flex:1;min-width:120px;margin-top:0}
 .hide{display:none}.order{border-top:1px solid var(--line);padding:13px 0}.order:first-child{border-top:0}
 .pill,.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eee;font-size:12px;font-weight:800}
 .total{font-weight:900;font-size:20px;text-align:right}.danger{background:#ffe2e2!important;color:#8a1111!important}
-.kpi{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px #0000000c}.kpi b{display:block;font-size:22px}
+.kpi{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px #0000000c}.kpi b{display:block;font-size:22px}.kpi span{font-size:11px;color:#666}
 .photoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}.photoGrid img{width:100%;height:90px;object-fit:cover;border-radius:10px}
 canvas{width:100%;height:180px;border:1px solid var(--line);border-radius:10px;background:#fff;touch-action:none}
 .vehicleWrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.carShape{position:relative;height:220px;border:2px solid #222;border-radius:80px 80px 55px 55px;margin:12px;background:#fff}
+.carShape{position:relative;height:240px;border:2px solid #222;border-radius:85px 85px 55px 55px;margin:12px;background:#fff}
 .zone{position:absolute;border:2px dashed #bbb;border-radius:10px;padding:7px;font-size:12px;background:#ffffffdd;cursor:pointer;text-align:center}
 .zone.active{border-color:var(--accent);background:#ffe8e8;font-weight:900}
 .zFront{top:8px;left:38%;width:24%}.zRear{bottom:8px;left:38%;width:24%}.zLeft{left:8px;top:38%;width:28%}.zRight{right:8px;top:38%;width:28%}.zRoof{left:36%;top:38%;width:28%}
 .damageLegend{display:flex;gap:6px;flex-wrap:wrap}.damageLegend button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 10px;font-weight:700}.damageLegend button.active{background:#111;color:#fff}
 .checkGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checkItem{display:flex;align-items:center;gap:8px;border:1px solid var(--line);padding:9px;border-radius:10px}.checkItem input{width:auto}
-.lineCard{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0}.lineGrid{display:grid;grid-template-columns:2fr .7fr 1fr 1fr 42px;gap:6px;align-items:end}
-.doc{font-size:14px;line-height:1.45}.docHead{display:flex;justify-content:space-between;border-bottom:3px solid #111;padding-bottom:12px;margin-bottom:16px}.docTitle{font-size:28px;font-weight:900;text-align:right}
-.docBox{border:1px solid #ddd;border-radius:10px;padding:10px;background:#fafafa}.doc table{width:100%;border-collapse:collapse}.doc th,.doc td{border:1px solid #ddd;padding:8px}.docTotals{margin-left:auto;width:min(360px,100%);margin-top:14px}.docTotals div{display:flex;justify-content:space-between;padding:5px 0}.grand{font-size:18px;font-weight:900;border-top:2px solid #111}
-@media(max-width:700px){.grid,.grid3,.vehicleWrap,.checkGrid{grid-template-columns:1fr}.lineGrid{grid-template-columns:1fr 1fr}.docHead{display:block}.docTitle{text-align:left;margin-top:10px}}
+.sectionTitle{font-weight:900;margin:14px 0 6px}
+.lineCard{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0}
+.lineGrid{display:grid;grid-template-columns:2fr .7fr 1fr 1fr 42px;gap:6px;align-items:end}
+.lineGrid button{border:0;border-radius:8px;background:#eee;height:42px}
+.doc{font-size:14px;line-height:1.45}.docHead{display:flex;justify-content:space-between;gap:20px;border-bottom:3px solid #111;padding-bottom:12px;margin-bottom:16px}
+.docTitle{font-size:28px;font-weight:900;text-align:right}.docBox{border:1px solid #ddd;border-radius:10px;padding:10px;background:#fafafa}
+.doc table{width:100%;border-collapse:collapse}.doc th,.doc td{border:1px solid #ddd;padding:8px}.docTotals{margin-left:auto;width:min(360px,100%);margin-top:14px}.docTotals div{display:flex;justify-content:space-between;padding:5px 0}.grand{font-size:18px;font-weight:900;border-top:2px solid #111}
+@media(max-width:700px){.grid,.grid3,.grid4,.vehicleWrap,.checkGrid{grid-template-columns:1fr}.lineGrid{grid-template-columns:1fr 1fr}.lineGrid .wide{grid-column:1/-1}.docHead{display:block}.docTitle{text-align:left;margin-top:10px}}
 @media print{header,nav,.noPrint{display:none!important}body{background:#fff}.card{box-shadow:none}}
 </style>
 </head>
 <body>
-<header><div class="brand">BEL‑PERF’AUTO</div><div class="sub">Gestion atelier • V3</div></header>
+<header><div class="brand">BEL‑PERF’AUTO</div><div class="sub">Gestion atelier • V3.1</div></header>
 <main>
 <nav>
 <button class="active" data-tab="home">Accueil</button>
@@ -65,7 +68,11 @@ canvas{width:100%;height:180px;border:1px solid var(--line);border-radius:10px;b
 <div class="kpi"><b id="kOpen">0</b><span>À traiter</span></div>
 <div class="kpi"><b id="kDone">0</b><span>Terminés</span></div>
 </div>
-<div class="card" style="margin-top:12px"><h2>Atelier</h2><p>Ordres de réparation, tour du véhicule, photos, signature, devis et factures.</p><button class="btn" onclick="openTab('new')">Créer un ordre de réparation</button></div>
+<div class="card" style="margin-top:12px">
+<h2>Atelier</h2>
+<p>Gestion des OR, clients, véhicules, état d'entrée, photos, signature, devis et factures.</p>
+<button class="btn" onclick="openTab('new')">Créer un ordre de réparation</button>
+</div>
 </section>
 
 <section id="new" class="hide">
@@ -77,7 +84,7 @@ canvas{width:100%;height:180px;border:1px solid var(--line);border-radius:10px;b
 <div class="grid"><div><label>Année</label><input id="year"></div><div><label>Kilométrage</label><input id="km"></div></div>
 <label>Travaux demandés *</label><textarea id="work" required></textarea>
 <div class="grid"><div><label>Statut</label><select id="status"><option>Attente</option><option>En cours</option><option>Terminé</option></select></div><div><label>Montant estimé (€)</label><input id="amount" type="number" step="0.01"></div></div>
-<label>Photos</label><input id="photos" type="file" accept="image/*" multiple><div class="photoGrid" id="photoPreview"></div>
+<label>Photos véhicule / travaux</label><input id="photos" type="file" accept="image/*" multiple><div class="photoGrid" id="photoPreview"></div>
 <label>Signature client</label><canvas id="signature" width="800" height="300"></canvas>
 <div class="rowBtns"><button class="btn light" type="button" id="clearSig">Effacer signature</button></div>
 <label>Notes internes</label><textarea id="notes"></textarea>
@@ -86,36 +93,65 @@ canvas{width:100%;height:180px;border:1px solid var(--line);border-radius:10px;b
 </section>
 
 <section id="orders" class="hide"><div class="card"><h2>Ordres de réparation</h2><input id="searchOrders" placeholder="Client, OR, immatriculation, véhicule..."><div id="ordersList"></div></div></section>
-<section id="customers" class="hide"><div class="card"><h2>Clients & véhicules</h2><input id="searchCustomers" placeholder="Rechercher"><div id="customersList"></div></div></section>
+<section id="customers" class="hide"><div class="card"><h2>Clients & véhicules</h2><input id="searchCustomers" placeholder="Rechercher un client ou véhicule"><div id="customersList"></div></div></section>
 
 <section id="inspection" class="hide">
 <div class="card">
 <h2>Tour du véhicule</h2>
-<label>OR lié</label><select id="inspOrder"></select>
+<label>Ordre de réparation lié</label><select id="inspOrder"></select>
+
 <div class="vehicleWrap">
 <div>
-<p class="muted">Choisis le type de défaut puis touche une zone.</p>
+<div class="sectionTitle">Carrosserie</div>
+<p class="muted">Choisis le défaut puis touche la zone concernée.</p>
 <div class="damageLegend">
-<button type="button" data-damage="Rayure">Rayure</button><button type="button" data-damage="Bosse">Bosse</button><button type="button" data-damage="Choc">Choc</button><button type="button" data-damage="Cassé">Cassé</button>
+<button type="button" data-damage="Rayure">Rayure</button>
+<button type="button" data-damage="Bosse">Bosse</button>
+<button type="button" data-damage="Choc">Choc</button>
+<button type="button" data-damage="Cassé">Cassé</button>
+<button type="button" data-damage="Autre">Autre</button>
 </div>
 <div class="carShape">
-<div class="zone zFront" data-zone="Avant">Avant</div><div class="zone zRear" data-zone="Arrière">Arrière</div>
-<div class="zone zLeft" data-zone="Côté gauche">Côté gauche</div><div class="zone zRight" data-zone="Côté droit">Côté droit</div><div class="zone zRoof" data-zone="Toit">Toit</div>
+<div class="zone zFront" data-zone="Avant">Avant</div>
+<div class="zone zRear" data-zone="Arrière">Arrière</div>
+<div class="zone zLeft" data-zone="Côté gauche">Côté gauche</div>
+<div class="zone zRight" data-zone="Côté droit">Côté droit</div>
+<div class="zone zRoof" data-zone="Toit">Toit</div>
 </div>
 <div id="damageList" class="muted">Aucun défaut signalé.</div>
 </div>
+
 <div>
-<div class="grid"><div><label>Kilométrage</label><input id="inspKm"></div><div><label>Carburant</label><select id="fuel"><option>Réserve</option><option>1/4</option><option>1/2</option><option>3/4</option><option>Plein</option></select></div></div>
+<div class="grid">
+<div><label>Kilométrage relevé</label><input id="inspKm"></div>
+<div><label>Niveau carburant</label><select id="fuel"><option>Réserve</option><option>1/4</option><option>1/2</option><option>3/4</option><option>Plein</option></select></div>
+</div>
+
+<div class="sectionTitle">État pneus / jantes</div>
+<div class="grid4">
+<div><label>AVG</label><select id="tyreFL"><option>OK</option><option>Usé</option><option>À remplacer</option><option>Jante abîmée</option></select></div>
+<div><label>AVD</label><select id="tyreFR"><option>OK</option><option>Usé</option><option>À remplacer</option><option>Jante abîmée</option></select></div>
+<div><label>ARG</label><select id="tyreRL"><option>OK</option><option>Usé</option><option>À remplacer</option><option>Jante abîmée</option></select></div>
+<div><label>ARD</label><select id="tyreRR"><option>OK</option><option>Usé</option><option>À remplacer</option><option>Jante abîmée</option></select></div>
+</div>
+
+<div class="sectionTitle">Voyants / accessoires</div>
 <div class="checkGrid">
 <label class="checkItem"><input type="checkbox" id="warningLight"> Voyant allumé</label>
 <label class="checkItem"><input type="checkbox" id="spareWheel"> Roue de secours</label>
 <label class="checkItem"><input type="checkbox" id="wheelKey"> Écrou antivol</label>
 <label class="checkItem"><input type="checkbox" id="documents"> Documents présents</label>
+<label class="checkItem"><input type="checkbox" id="personalItems"> Effets personnels</label>
+<label class="checkItem"><input type="checkbox" id="chargingCable"> Câble de recharge</label>
 </div>
-<label>Photos</label><input id="inspPhotos" type="file" accept="image/*" capture="environment" multiple><div class="photoGrid" id="inspPhotoPreview"></div>
+
+<label>Photos du tour du véhicule</label><input id="inspPhotos" type="file" accept="image/*" capture="environment" multiple><div class="photoGrid" id="inspPhotoPreview"></div>
 <label>Remarques</label><textarea id="inspNotes"></textarea>
 <label>Signature client</label><canvas id="inspSignature" width="800" height="300"></canvas>
-<div class="rowBtns"><button class="btn light" type="button" id="clearInspSig">Effacer signature</button><button class="btn green" type="button" id="saveInspection">Enregistrer le tour du véhicule</button></div>
+<div class="rowBtns">
+<button class="btn light" type="button" id="clearInspSig">Effacer signature</button>
+<button class="btn green" type="button" id="saveInspection">Enregistrer le tour du véhicule</button>
+</div>
 </div>
 </div>
 </div>
@@ -145,9 +181,10 @@ canvas{width:100%;height:180px;border:1px solid var(--line);border-radius:10px;b
 <input class="hide" id="importFile" type="file" accept="application/json">
 </div></section>
 </main>
+
 <script>
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-const K='belperf_v3_orders', SK='belperf_v3_settings', CK='belperf_v3_counters';
+const K='belperf_v31_orders', SK='belperf_v31_settings', CK='belperf_v31_counters';
 const load=()=>JSON.parse(localStorage.getItem(K)||'[]');
 const save=a=>{localStorage.setItem(K,JSON.stringify(a));stats();refreshOrderSelect();refreshInspectionSelect()};
 const esc=(s='')=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -165,8 +202,8 @@ const sigMain=setupCanvas($('#signature')),sigInsp=setupCanvas($('#inspSignature
 let photoData=[];$('#photos').onchange=async e=>{photoData=[];$('#photoPreview').innerHTML='';for(const f of [...e.target.files].slice(0,6)){const d=await fileToData(f);photoData.push(d);$('#photoPreview').innerHTML+=`<img src="${d}">`}};function fileToData(f){return new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f)})}
 $('#orForm').onsubmit=e=>{e.preventDefault();const a=load(),n=nextNumber('or');a.push({id:crypto.randomUUID?crypto.randomUUID():Date.now().toString(),orNumber:n,date:new Date().toISOString(),client:$('#client').value.trim(),phone:$('#phone').value.trim(),email:$('#email').value.trim(),plate:$('#plate').value.trim().toUpperCase(),vehicle:$('#vehicle').value.trim(),vin:$('#vin').value.trim().toUpperCase(),year:$('#year').value.trim(),km:$('#km').value.trim(),work:$('#work').value.trim(),status:$('#status').value,amount:$('#amount').value,notes:$('#notes').value.trim(),photos:photoData,signature:$('#signature').toDataURL('image/png'),inspection:null});save(a);e.target.reset();photoData=[];$('#photoPreview').innerHTML='';sigMain.clear();alert('OR enregistré : '+n);openTab('orders')}
 
-function renderOrders(){const q=($('#searchOrders').value||'').toLowerCase(),a=load().filter(o=>JSON.stringify(o).toLowerCase().includes(q)).reverse();$('#ordersList').innerHTML=a.length?a.map(o=>`<div class="order"><strong>${esc(o.orNumber||'OR')}</strong> — ${esc(o.client)} — ${esc(o.plate)}<div class="muted">${esc(o.vehicle||'')} • ${new Date(o.date).toLocaleString('fr-FR')}</div><p>${esc(o.work)}</p><span class="pill">${esc(o.status)}</span> ${o.inspection?'<span class="badge">Tour véhicule enregistré</span>':''}<div class="rowBtns"><button class="btn light" onclick="cycle('${o.id}')">Changer statut</button><button class="btn blue" onclick="openInspection('${o.id}')">Tour véhicule</button><button class="btn dark" onclick="printOR('${o.id}')">OR / PDF</button></div></div>`).join(''):'<p class="muted">Aucun OR.</p>'}
-$('#searchOrders').oninput=renderOrders;window.cycle=id=>{const a=load(),o=a.find(x=>x.id===id),s=['Attente','En cours','Terminé'];o.status=s[(s.indexOf(o.status)+1)%3];save(a);renderOrders()}
+function renderOrders(){const q=($('#searchOrders').value||'').toLowerCase(),a=load().filter(o=>JSON.stringify(o).toLowerCase().includes(q)).reverse();$('#ordersList').innerHTML=a.length?a.map(o=>`<div class="order"><strong>${esc(o.orNumber||'OR')}</strong> — ${esc(o.client)} — ${esc(o.plate)}<div class="muted">${esc(o.vehicle||'')} • ${new Date(o.date).toLocaleString('fr-FR')}</div><p>${esc(o.work)}</p><span class="pill">${esc(o.status)}</span> ${o.inspection?'<span class="badge">Tour véhicule enregistré</span>':''}<div class="rowBtns"><button class="btn light" onclick="cycle('${o.id}')">Changer statut</button><button class="btn blue" onclick="openInspection('${o.id}')">Tour véhicule</button><button class="btn dark" onclick="printOR('${o.id}')">OR / PDF</button>${o.phone?`<button class="btn light" onclick="phone('${esc(o.phone)}')">Appeler</button><button class="btn light" onclick="sms('${esc(o.phone)}')">SMS</button>`:''}</div></div>`).join(''):'<p class="muted">Aucun OR.</p>'}
+$('#searchOrders').oninput=renderOrders;window.cycle=id=>{const a=load(),o=a.find(x=>x.id===id),s=['Attente','En cours','Terminé'];o.status=s[(s.indexOf(o.status)+1)%3];save(a);renderOrders()};window.phone=n=>{if(window.Android)Android.openExternal('tel:'+n);else location.href='tel:'+n};window.sms=n=>{if(window.Android)Android.openExternal('sms:'+n);else location.href='sms:'+n}
 
 function renderCustomers(){const q=($('#searchCustomers').value||'').toLowerCase(),arr=load(),m={};arr.forEach(o=>{const k=(o.phone||o.client).toLowerCase();if(!m[k])m[k]={client:o.client,phone:o.phone,email:o.email,items:[]};m[k].items.push(o)});const g=Object.values(m).filter(x=>JSON.stringify(x).toLowerCase().includes(q));$('#customersList').innerHTML=g.length?g.map(x=>`<div class="order"><strong>${esc(x.client)}</strong><div class="muted">${esc(x.phone||'')} ${x.email?'• '+esc(x.email):''}</div><p>${x.items.map(o=>esc((o.orNumber||'OR')+' • '+o.plate+' '+(o.vehicle||''))).join('<br>')}</p></div>`).join(''):'<p class="muted">Aucun client.</p>'}
 $('#searchCustomers').oninput=renderCustomers;
@@ -174,19 +211,27 @@ $('#searchCustomers').oninput=renderCustomers;
 function refreshOrderSelect(){const a=load();$('#docOrder').innerHTML='<option value="">Sans OR lié</option>'+a.slice().reverse().map(o=>`<option value="${o.id}">${esc(o.orNumber||'OR')} — ${esc(o.client)} — ${esc(o.plate)}</option>`).join('')}
 function refreshInspectionSelect(){const a=load();$('#inspOrder').innerHTML='<option value="">Sélectionner un OR</option>'+a.slice().reverse().map(o=>`<option value="${o.id}">${esc(o.orNumber||'OR')} — ${esc(o.client)} — ${esc(o.plate)}</option>`).join('')}
 window.openInspection=id=>{openTab('inspection');$('#inspOrder').value=id}
-let damage='Rayure',damages=[],inspPhotos=[];$$('[data-damage]').forEach(b=>b.onclick=()=>{$$('[data-damage]').forEach(x=>x.classList.remove('active'));b.classList.add('active');damage=b.dataset.damage});$$('.zone').forEach(z=>z.onclick=()=>{if(!$('#inspOrder').value){alert('Sélectionne un OR.');return}damages.push({zone:z.dataset.zone,type:damage});z.classList.add('active');renderDamages()});function renderDamages(){$('#damageList').innerHTML=damages.length?damages.map(d=>`<span class="badge">${esc(d.zone)} : ${esc(d.type)}</span>`).join(' '):'Aucun défaut signalé.'}
-$('#inspPhotos').onchange=async e=>{inspPhotos=[];$('#inspPhotoPreview').innerHTML='';for(const f of [...e.target.files].slice(0,8)){const d=await fileToData(f);inspPhotos.push(d);$('#inspPhotoPreview').innerHTML+=`<img src="${d}">`}}
-$('#saveInspection').onclick=()=>{const id=$('#inspOrder').value;if(!id){alert('Sélectionne un OR.');return}const a=load(),o=a.find(x=>x.id===id);o.inspection={savedAt:new Date().toISOString(),km:$('#inspKm').value,fuel:$('#fuel').value,damages,warningLight:$('#warningLight').checked,spareWheel:$('#spareWheel').checked,wheelKey:$('#wheelKey').checked,documents:$('#documents').checked,notes:$('#inspNotes').value.trim(),photos:inspPhotos,signature:$('#inspSignature').toDataURL('image/png')};save(a);alert('Tour véhicule enregistré pour '+o.orNumber)}
 
-function addLine(desc='',qty=1,price=0){const d=document.createElement('div');d.className='lineCard';d.innerHTML=`<div class="lineGrid"><div><label>Désignation</label><input class="ld" value="${esc(desc)}"></div><div><label>Qté</label><input class="lq" type="number" value="${qty}"></div><div><label>PU (€)</label><input class="lp" type="number" value="${price}"></div><div><label>Total</label><input class="lt" readonly></div><button type="button">×</button></div>`;d.querySelector('button').onclick=()=>{d.remove();calcBill()};d.querySelectorAll('input').forEach(i=>i.oninput=calcBill);$('#lines').appendChild(d);calcBill()}
+let damage='Rayure',damages=[],inspPhotos=[];
+$$('[data-damage]').forEach(b=>b.onclick=()=>{$$('[data-damage]').forEach(x=>x.classList.remove('active'));b.classList.add('active');damage=b.dataset.damage});
+$$('.zone').forEach(z=>z.onclick=()=>{if(!$('#inspOrder').value){alert('Sélectionne un OR.');return}damages.push({zone:z.dataset.zone,type:damage});z.classList.add('active');renderDamages()});
+function renderDamages(){$('#damageList').innerHTML=damages.length?damages.map(d=>`<span class="badge">${esc(d.zone)} : ${esc(d.type)}</span>`).join(' '):'Aucun défaut signalé.'}
+$('#inspPhotos').onchange=async e=>{inspPhotos=[];$('#inspPhotoPreview').innerHTML='';for(const f of [...e.target.files].slice(0,8)){const d=await fileToData(f);inspPhotos.push(d);$('#inspPhotoPreview').innerHTML+=`<img src="${d}">`}}
+$('#saveInspection').onclick=()=>{const id=$('#inspOrder').value;if(!id){alert('Sélectionne un OR.');return}const a=load(),o=a.find(x=>x.id===id);o.inspection={savedAt:new Date().toISOString(),km:$('#inspKm').value,fuel:$('#fuel').value,damages,tyres:{fl:$('#tyreFL').value,fr:$('#tyreFR').value,rl:$('#tyreRL').value,rr:$('#tyreRR').value},accessories:{warningLight:$('#warningLight').checked,spareWheel:$('#spareWheel').checked,wheelKey:$('#wheelKey').checked,documents:$('#documents').checked,personalItems:$('#personalItems').checked,chargingCable:$('#chargingCable').checked},notes:$('#inspNotes').value.trim(),photos:inspPhotos,signature:$('#inspSignature').toDataURL('image/png')};if($('#inspKm').value)o.km=$('#inspKm').value;save(a);alert('Tour véhicule enregistré pour '+o.orNumber)}
+
+function addLine(desc='',qty=1,price=0){const d=document.createElement('div');d.className='lineCard';d.innerHTML=`<div class="lineGrid"><div class="wide"><label>Désignation</label><input class="ld" value="${esc(desc)}"></div><div><label>Qté</label><input class="lq" type="number" value="${qty}"></div><div><label>PU (€)</label><input class="lp" type="number" value="${price}"></div><div><label>Total</label><input class="lt" readonly></div><button type="button">×</button></div>`;d.querySelector('button').onclick=()=>{d.remove();calcBill()};d.querySelectorAll('input').forEach(i=>i.oninput=calcBill);$('#lines').appendChild(d);calcBill()}
 $('#addLine').onclick=()=>addLine();function vatRate(){const m=$('#vatMode').value;return m==='settings'?Number(settings().vatDefault||0):Number(m)}function calcBill(){let ht=0;$$('#lines .lineCard').forEach(l=>{const q=Number(l.querySelector('.lq').value||0),p=Number(l.querySelector('.lp').value||0),t=q*p;l.querySelector('.lt').value=t.toFixed(2)+' €';ht+=t});ht=Math.max(0,ht-Number($('#discount').value||0));const ttc=ht*(1+vatRate()/100);$('#billTotal').textContent=ttc.toLocaleString('fr-FR',{minimumFractionDigits:2})+' €';return{ht,ttc,tva:ttc-ht}}
 $('#discount').oninput=calcBill;$('#vatMode').onchange=calcBill;addLine('Main-d’œuvre',1,settings().hourly||100)
-$('#makeDoc').onclick=()=>{const s=settings(),o=load().find(x=>x.id===$('#docOrder').value),c=calcBill(),type=$('#docType').value,rate=vatRate(),num=nextNumber(type==='Devis'?'devis':'facture');let rows='';$$('#lines .lineCard').forEach(l=>{const d=l.querySelector('.ld').value,q=Number(l.querySelector('.lq').value||0),p=Number(l.querySelector('.lp').value||0);rows+=`<tr><td>${esc(d)}</td><td>${q}</td><td>${p.toFixed(2)} €</td><td>${(q*p).toFixed(2)} €</td></tr>`});const client=o?`<div class="grid"><div class="docBox"><b>Client</b><br>${esc(o.client)}<br>${esc(o.phone||'')}<br>${esc(o.email||'')}</div><div class="docBox"><b>Véhicule</b><br>${esc(o.vehicle||'')}<br>${esc(o.plate)}<br><b>OR lié :</b> ${esc(o.orNumber||'')}</div></div>`:'';showDocument(`<div class="doc"><div class="docHead"><div><h1>${esc(s.company)}</h1><div>${esc(s.address).replace(/\\n/g,'<br>')}</div><div>${esc(s.phone)} ${s.email?'• '+esc(s.email):''}</div><div>${esc(s.legal||'')}</div></div><div class="docTitle">${type.toUpperCase()}<br><span style="font-size:16px">${esc(num)}</span></div></div><p><b>Date :</b> ${new Date().toLocaleDateString('fr-FR')}</p>${client}<table><tr><th>Désignation</th><th>Qté</th><th>PU</th><th>Total</th></tr>${rows}</table><div class="docTotals"><div><span>Total HT</span><b>${c.ht.toFixed(2)} €</b></div><div><span>TVA (${rate} %)</span><b>${c.tva.toFixed(2)} €</b></div><div class="grand"><span>Total TTC</span><b>${c.ttc.toFixed(2)} €</b></div></div></div>`)}
-function showDocument(h){openTab('billing');$('#documentPreview').innerHTML=h+`<div class="rowBtns noPrint"><button class="btn dark" onclick="doPrint()">Imprimer / Enregistrer PDF</button></div>`;$('#documentPreview').classList.remove('hide')}window.doPrint=()=>{if(window.Android)Android.printPage();else window.print()}
-window.printOR=id=>{const o=load().find(x=>x.id===id),s=settings();if(!o)return;const i=o.inspection,ib=i?`<h3>Tour du véhicule</h3><p>Date : ${new Date(i.savedAt).toLocaleString('fr-FR')}<br>Carburant : ${esc(i.fuel)}<br>Défauts : ${(i.damages||[]).map(d=>esc(d.zone)+' '+esc(d.type)).join(', ')||'Aucun'}</p>`:'';showDocument(`<div class="doc"><div class="docHead"><div><h1>${esc(s.company)}</h1><div>${esc(s.address).replace(/\\n/g,'<br>')}</div></div><div class="docTitle">ORDRE DE RÉPARATION<br><span style="font-size:16px">${esc(o.orNumber)}</span></div></div><div class="grid"><div class="docBox"><b>Client</b><br>${esc(o.client)}<br>${esc(o.phone||'')}</div><div class="docBox"><b>Véhicule</b><br>${esc(o.vehicle||'')}<br>${esc(o.plate)}<br>Km : ${esc(o.km||'')}</div></div><h3>Travaux demandés</h3><p>${esc(o.work)}</p>${ib}</div>`)}
+
+$('#makeDoc').onclick=()=>{const s=settings(),o=load().find(x=>x.id===$('#docOrder').value),c=calcBill(),type=$('#docType').value,rate=vatRate(),num=nextNumber(type==='Devis'?'devis':'facture');let rows='';$$('#lines .lineCard').forEach(l=>{const d=l.querySelector('.ld').value,q=Number(l.querySelector('.lq').value||0),p=Number(l.querySelector('.lp').value||0);rows+=`<tr><td>${esc(d)}</td><td>${q}</td><td>${p.toFixed(2)} €</td><td>${(q*p).toFixed(2)} €</td></tr>`});const client=o?`<div class="grid"><div class="docBox"><b>Client</b><br>${esc(o.client)}<br>${esc(o.phone||'')}<br>${esc(o.email||'')}</div><div class="docBox"><b>Véhicule</b><br>${esc(o.vehicle||'')}<br>${esc(o.plate)}<br><b>OR lié :</b> ${esc(o.orNumber||'')}</div></div>`:'';showDocument(`<div class="doc"><div class="docHead"><div><h1>${esc(s.company)}</h1><div>${esc(s.address).replace(/\n/g,'<br>')}</div><div>${esc(s.phone)} ${s.email?'• '+esc(s.email):''}</div><div>${esc(s.legal||'')}</div></div><div class="docTitle">${type.toUpperCase()}<br><span style="font-size:16px">${esc(num)}</span></div></div><p><b>Date :</b> ${new Date().toLocaleDateString('fr-FR')}</p>${client}<table><tr><th>Désignation</th><th>Qté</th><th>PU</th><th>Total</th></tr>${rows}</table><div class="docTotals"><div><span>Total HT</span><b>${c.ht.toFixed(2)} €</b></div><div><span>TVA (${rate} %)</span><b>${c.tva.toFixed(2)} €</b></div><div class="grand"><span>Total TTC</span><b>${c.ttc.toFixed(2)} €</b></div></div></div>`)}
+
+function showDocument(h){openTab('billing');$('#documentPreview').innerHTML=h+`<div class="rowBtns noPrint"><button class="btn dark" onclick="doPrint()">Imprimer / Enregistrer PDF</button></div>`;$('#documentPreview').classList.remove('hide')}
+window.doPrint=()=>{if(window.Android)Android.printPage();else window.print()}
+window.printOR=id=>{const o=load().find(x=>x.id===id),s=settings();if(!o)return;const i=o.inspection;const tyres=i?`AVG ${esc(i.tyres?.fl||'')} • AVD ${esc(i.tyres?.fr||'')} • ARG ${esc(i.tyres?.rl||'')} • ARD ${esc(i.tyres?.rr||'')}`:'';const ib=i?`<h3>État d'entrée du véhicule</h3><p><b>Date :</b> ${new Date(i.savedAt).toLocaleString('fr-FR')}<br><b>Carburant :</b> ${esc(i.fuel||'')}<br><b>Kilométrage :</b> ${esc(i.km||o.km||'')}<br><b>Pneus/Jantes :</b> ${tyres}<br><b>Défauts :</b> ${(i.damages||[]).map(d=>esc(d.zone)+' : '+esc(d.type)).join(', ')||'Aucun signalé'}</p>`:'';showDocument(`<div class="doc"><div class="docHead"><div><h1>${esc(s.company)}</h1><div>${esc(s.address).replace(/\n/g,'<br>')}</div></div><div class="docTitle">ORDRE DE RÉPARATION<br><span style="font-size:16px">${esc(o.orNumber)}</span></div></div><div class="grid"><div class="docBox"><b>Client</b><br>${esc(o.client)}<br>${esc(o.phone||'')}<br>${esc(o.email||'')}</div><div class="docBox"><b>Véhicule</b><br>${esc(o.vehicle||'')}<br>${esc(o.plate)}<br>VIN : ${esc(o.vin||'')}<br>Km : ${esc(o.km||'')}</div></div><h3>Travaux demandés</h3><p>${esc(o.work)}</p>${ib}</div>`)}
+
 let st=settings();$('#company').value=st.company;$('#hourly').value=st.hourly;$('#vatDefault').value=String(st.vatDefault);$('#address').value=st.address;$('#companyPhone').value=st.phone;$('#companyEmail').value=st.email;$('#legal').value=st.legal
 $('#saveSettings').onclick=()=>{localStorage.setItem(SK,JSON.stringify({company:$('#company').value,hourly:Number($('#hourly').value||0),vatDefault:Number($('#vatDefault').value||0),address:$('#address').value,phone:$('#companyPhone').value,email:$('#companyEmail').value,legal:$('#legal').value}));alert('Réglages enregistrés.')}
-$('#exportData').onclick=()=>{const d={version:3,orders:load(),settings:settings(),counters:counters(),exportedAt:new Date().toISOString()},b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='BEL-PERF-AUTO-V3-sauvegarde.json';a.click();URL.revokeObjectURL(u)}
+$('#exportData').onclick=()=>{const d={version:3.1,orders:load(),settings:settings(),counters:counters(),exportedAt:new Date().toISOString()},b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='BEL-PERF-AUTO-V3-1-sauvegarde.json';a.click();URL.revokeObjectURL(u)}
 $('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(Array.isArray(d.orders))save(d.orders);if(d.settings)localStorage.setItem(SK,JSON.stringify(d.settings));if(d.counters)localStorage.setItem(CK,JSON.stringify(d.counters));location.reload()}catch(_){alert('Fichier invalide.')}}
 stats();refreshOrderSelect();refreshInspectionSelect()
 </script>
