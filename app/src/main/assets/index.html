@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BEL-PERF'AUTO V2</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--ink:#111;--muted:#6b7280;--accent:#d71920;--line:#e5e7eb;--green:#16733a}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#111;color:#fff;padding:16px;position:sticky;top:0;z-index:20}
+.brand{font-size:22px;font-weight:900}.sub{font-size:12px;color:#ccc;margin-top:2px}
+main{max-width:980px;margin:auto;padding:12px}
+nav{display:flex;gap:7px;overflow:auto;padding-bottom:12px}
+nav button{border:0;border-radius:999px;padding:10px 13px;background:#ddd;font-weight:800;white-space:nowrap}
+nav button.active{background:var(--accent);color:#fff}
+.card{background:#fff;padding:15px;border-radius:16px;margin-bottom:12px;box-shadow:0 2px 12px #00000010}
+h2{font-size:18px;margin:0 0 12px}.muted{font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+label{display:block;font-size:13px;font-weight:800;margin:10px 0 5px}
+input,select,textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:16px}
+textarea{min-height:80px;resize:vertical}
+.btn{width:100%;padding:12px;border:0;border-radius:10px;font-size:15px;font-weight:900;background:var(--accent);color:#fff;margin-top:10px}
+.btn.dark{background:#222}.btn.light{background:#ececec;color:#111}.btn.green{background:var(--green)}
+.rowBtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.rowBtns .btn{flex:1;min-width:120px;margin-top:0}
+.hide{display:none}.order{border-top:1px solid var(--line);padding:13px 0}.order:first-child{border-top:0}
+.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#eee;font-size:12px;font-weight:800}
+.total{font-weight:900;font-size:20px;text-align:right}.danger{background:#ffe2e2!important;color:#8a1111!important}
+.kpi{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 2px 10px #0000000c}
+.kpi b{display:block;font-size:22px}.kpi span{font-size:11px;color:#666}
+.photoGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.photoGrid img{width:100%;height:90px;object-fit:cover;border-radius:10px}
+canvas{width:100%;height:180px;border:1px solid var(--line);border-radius:10px;background:#fff;touch-action:none}
+.line{display:grid;grid-template-columns:1.8fr .6fr .8fr 36px;gap:6px;margin:6px 0}
+.line button{border:0;border-radius:8px;background:#eee}
+.doc{font-size:14px;line-height:1.45}.doc h1{font-size:22px;margin-bottom:4px}.doc table{width:100%;border-collapse:collapse}.doc th,.doc td{border:1px solid #ddd;padding:7px;text-align:left}
+.doc .right{text-align:right}.doc .sig{max-width:260px;border:1px solid #ddd}
+@media(max-width:650px){.grid,.grid3{grid-template-columns:1fr}.line{grid-template-columns:1.5fr .55fr .75fr 34px}}
+@media print{header,nav,.noPrint{display:none!important}body{background:white}.card{box-shadow:none}.doc{display:block!important}}
+</style>
+</head>
+<body>
+<header><div class="brand">BEL‑PERF’AUTO</div><div class="sub">Gestion atelier • V2</div></header>
+<main>
+<nav>
+<button class="active" data-tab="home">Accueil</button>
+<button data-tab="new">Nouvel OR</button>
+<button data-tab="orders">Ordres</button>
+<button data-tab="customers">Clients</button>
+<button data-tab="billing">Devis / Facture</button>
+<button data-tab="settings">Réglages</button>
+</nav>
+
+<section id="home">
+<div class="grid3">
+<div class="kpi"><b id="kAll">0</b><span>OR</span></div>
+<div class="kpi"><b id="kOpen">0</b><span>À traiter</span></div>
+<div class="kpi"><b id="kDone">0</b><span>Terminés</span></div>
+</div>
+<div class="card" style="margin-top:12px"><h2>Atelier</h2><p>Gestion des clients, véhicules, ordres de réparation, photos, signature et documents.</p><button class="btn" onclick="openTab('new')">Créer un ordre de réparation</button></div>
+</section>
+
+<section id="new" class="hide">
+<form id="orForm" class="card">
+<h2>Nouvel ordre de réparation</h2>
+<div class="grid"><div><label>Client *</label><input id="client" required></div><div><label>Téléphone</label><input id="phone" inputmode="tel"></div></div>
+<div class="grid"><div><label>Email</label><input id="email" type="email"></div><div><label>Immatriculation *</label><input id="plate" required></div></div>
+<div class="grid"><div><label>Marque / Modèle</label><input id="vehicle"></div><div><label>VIN</label><input id="vin"></div></div>
+<div class="grid"><div><label>Année</label><input id="year" inputmode="numeric"></div><div><label>Kilométrage</label><input id="km" inputmode="numeric"></div></div>
+<label>Travaux demandés *</label><textarea id="work" required></textarea>
+<div class="grid"><div><label>Statut</label><select id="status"><option>Attente</option><option>En cours</option><option>Terminé</option></select></div><div><label>Montant estimé (€)</label><input id="amount" type="number" step="0.01" min="0"></div></div>
+<label>Photos du véhicule / travaux</label><input id="photos" type="file" accept="image/*" multiple>
+<div class="photoGrid" id="photoPreview"></div>
+<label>Signature du client</label><canvas id="signature" width="800" height="300"></canvas>
+<div class="rowBtns"><button class="btn light" type="button" id="clearSig">Effacer signature</button></div>
+<label>Notes internes</label><textarea id="notes"></textarea>
+<button class="btn" type="submit">Enregistrer l’OR</button>
+</form>
+</section>
+
+<section id="orders" class="hide">
+<div class="card"><h2>Ordres de réparation</h2><input id="searchOrders" placeholder="Client, immatriculation, véhicule..."><div id="ordersList"></div></div>
+</section>
+
+<section id="customers" class="hide">
+<div class="card"><h2>Clients & véhicules</h2><input id="searchCustomers" placeholder="Rechercher un client ou véhicule"><div id="customersList"></div></div>
+</section>
+
+<section id="billing" class="hide">
+<div class="card">
+<h2>Créer un devis / une facture</h2>
+<div class="grid"><div><label>Type</label><select id="docType"><option>Devis</option><option>Facture</option></select></div><div><label>OR lié</label><select id="docOrder"></select></div></div>
+<label>Lignes</label><div id="lines"></div><button class="btn light" type="button" id="addLine">+ Ajouter une ligne</button>
+<div class="grid"><div><label>Remise (€)</label><input id="discount" type="number" step="0.01" value="0"></div><div><label>TVA</label><select id="vatMode"><option value="settings">Réglage entreprise</option><option value="0">0 %</option><option value="20">20 %</option></select></div></div>
+<div class="total" id="billTotal">0,00 €</div>
+<button class="btn green" type="button" id="makeDoc">Générer le document</button>
+</div>
+<div id="documentPreview" class="card doc hide"></div>
+</section>
+
+<section id="settings" class="hide">
+<div class="card">
+<h2>Réglages entreprise</h2>
+<label>Nom</label><input id="company" value="BEL-PERF'AUTO">
+<div class="grid"><div><label>Taux horaire HT (€)</label><input id="hourly" type="number" value="100"></div><div><label>TVA par défaut</label><select id="vatDefault"><option value="0">0 %</option><option value="20">20 %</option></select></div></div>
+<label>Adresse</label><textarea id="address"></textarea>
+<div class="grid"><div><label>Téléphone</label><input id="companyPhone"></div><div><label>Email</label><input id="companyEmail"></div></div>
+<button class="btn dark" id="saveSettings" type="button">Enregistrer</button>
+<button class="btn light" id="exportData" type="button">Exporter une sauvegarde</button>
+<button class="btn light" id="importBtn" type="button">Importer une sauvegarde</button><input class="hide" id="importFile" type="file" accept="application/json">
+<p class="muted">Les données restent sur ce téléphone. Exporte une sauvegarde régulièrement.</p>
+</div>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+const K='belperf_v2_orders', SK='belperf_v2_settings';
+const load=()=>JSON.parse(localStorage.getItem(K)||'[]');
+const save=a=>{localStorage.setItem(K,JSON.stringify(a));stats();refreshOrderSelect()};
+const esc=(s='')=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const settings=()=>Object.assign({company:"BEL-PERF'AUTO",hourly:100,vatDefault:0,address:'',phone:'',email:''},JSON.parse(localStorage.getItem(SK)||'{}'));
+
+function openTab(id){$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));['home','new','orders','customers','billing','settings'].forEach(x=>$('#'+x).classList.toggle('hide',x!==id));if(id==='orders')renderOrders();if(id==='customers')renderCustomers();if(id==='billing')refreshOrderSelect()}
+window.openTab=openTab; $$('nav button').forEach(b=>b.onclick=()=>openTab(b.dataset.tab));
+function stats(){const a=load();$('#kAll').textContent=a.length;$('#kOpen').textContent=a.filter(x=>x.status!=='Terminé').length;$('#kDone').textContent=a.filter(x=>x.status==='Terminé').length}
+
+let photoData=[];
+$('#photos').onchange=async e=>{
+ photoData=[]; $('#photoPreview').innerHTML='';
+ for(const f of [...e.target.files].slice(0,6)){const d=await fileToData(f);photoData.push(d);$('#photoPreview').innerHTML+=`<img src="${d}">`}
+};
+function fileToData(f){return new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(f)})}
+
+// signature
+const canvas=$('#signature'), ctx=canvas.getContext('2d');ctx.lineWidth=3;ctx.lineCap='round';let drawing=false;
+function pos(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return {x:(t.clientX-r.left)*canvas.width/r.width,y:(t.clientY-r.top)*canvas.height/r.height}}
+function start(e){drawing=true;let p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault()}
+function move(e){if(!drawing)return;let p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault()}
+function end(){drawing=false}
+['mousedown','touchstart'].forEach(x=>canvas.addEventListener(x,start,{passive:false}));
+['mousemove','touchmove'].forEach(x=>canvas.addEventListener(x,move,{passive:false}));
+['mouseup','mouseleave','touchend'].forEach(x=>canvas.addEventListener(x,end));
+$('#clearSig').onclick=()=>ctx.clearRect(0,0,canvas.width,canvas.height);
+
+$('#orForm').onsubmit=e=>{
+ e.preventDefault(); const a=load();
+ a.push({id:(crypto.randomUUID?crypto.randomUUID():Date.now().toString()),date:new Date().toISOString(),
+ client:$('#client').value.trim(),phone:$('#phone').value.trim(),email:$('#email').value.trim(),plate:$('#plate').value.trim().toUpperCase(),
+ vehicle:$('#vehicle').value.trim(),vin:$('#vin').value.trim().toUpperCase(),year:$('#year').value.trim(),km:$('#km').value.trim(),
+ work:$('#work').value.trim(),status:$('#status').value,amount:$('#amount').value,notes:$('#notes').value.trim(),
+ photos:photoData,signature:canvas.toDataURL('image/png')});
+ save(a); e.target.reset(); photoData=[]; $('#photoPreview').innerHTML=''; ctx.clearRect(0,0,canvas.width,canvas.height);
+ alert('Ordre de réparation enregistré.'); openTab('orders')
+};
+
+function renderOrders(){
+ const q=($('#searchOrders').value||'').toLowerCase(), a=load().filter(o=>JSON.stringify(o).toLowerCase().includes(q)).reverse();
+ $('#ordersList').innerHTML=a.length?a.map(o=>`<div class="order"><strong>${esc(o.client)}</strong> — ${esc(o.plate)}
+ <div class="muted">${esc(o.vehicle||'')} • ${new Date(o.date).toLocaleString('fr-FR')}</div><p>${esc(o.work)}</p>
+ <span class="pill">${esc(o.status)}</span>${o.amount?`<div class="total">${Number(o.amount).toFixed(2)} €</div>`:''}
+ <div class="rowBtns">
+ <button class="btn light" onclick="cycle('${o.id}')">Changer statut</button>
+ <button class="btn dark" onclick="printOR('${o.id}')">OR / PDF</button>
+ ${o.phone?`<button class="btn light" onclick="phone('${esc(o.phone)}')">Appeler</button><button class="btn light" onclick="sms('${esc(o.phone)}')">SMS</button>`:''}
+ <button class="btn danger" onclick="removeOR('${o.id}')">Supprimer</button>
+ </div></div>`).join(''):'<p class="muted">Aucun ordre enregistré.</p>'
+}
+$('#searchOrders').oninput=renderOrders;
+window.cycle=id=>{const a=load(),o=a.find(x=>x.id===id),s=['Attente','En cours','Terminé'];o.status=s[(s.indexOf(o.status)+1)%3];save(a);renderOrders()}
+window.removeOR=id=>{if(confirm('Supprimer cet ordre ?')){save(load().filter(x=>x.id!==id));renderOrders()}}
+window.phone=n=>{if(window.Android)Android.openExternal('tel:'+n);else location.href='tel:'+n}
+window.sms=n=>{if(window.Android)Android.openExternal('sms:'+n);else location.href='sms:'+n}
+
+function renderCustomers(){
+ const q=($('#searchCustomers').value||'').toLowerCase(), arr=load();
+ const map={}; arr.forEach(o=>{const k=(o.phone||o.client).toLowerCase();if(!map[k])map[k]={client:o.client,phone:o.phone,email:o.email,items:[]};map[k].items.push(o)});
+ const groups=Object.values(map).filter(g=>JSON.stringify(g).toLowerCase().includes(q));
+ $('#customersList').innerHTML=groups.length?groups.map(g=>`<div class="order"><strong>${esc(g.client)}</strong>
+ <div class="muted">${esc(g.phone||'')} ${g.email?'• '+esc(g.email):''}</div>
+ <p><b>${g.items.length}</b> intervention(s) — véhicules : ${[...new Set(g.items.map(x=>x.plate+' '+(x.vehicle||'')))].map(esc).join(', ')}</p>
+ </div>`).join(''):'<p class="muted">Aucun client.</p>'
+}
+$('#searchCustomers').oninput=renderCustomers;
+
+window.printOR=id=>{
+ const o=load().find(x=>x.id===id), s=settings(); if(!o)return;
+ const photos=(o.photos||[]).map(p=>`<img src="${p}" style="width:30%;max-height:160px;object-fit:cover;margin:3px">`).join('');
+ const sig=o.signature?`<p><b>Signature client :</b></p><img class="sig" src="${o.signature}">`:'';
+ const html=`<div class="doc"><h1>${esc(s.company)}</h1><div>${esc(s.address).replace(/\n/g,'<br>')}</div><p><b>ORDRE DE RÉPARATION</b><br>Date : ${new Date(o.date).toLocaleString('fr-FR')}</p>
+ <table><tr><th>Client</th><td>${esc(o.client)}</td><th>Téléphone</th><td>${esc(o.phone||'')}</td></tr>
+ <tr><th>Véhicule</th><td>${esc(o.vehicle||'')}</td><th>Immatriculation</th><td>${esc(o.plate)}</td></tr>
+ <tr><th>Année</th><td>${esc(o.year||'')}</td><th>Kilométrage</th><td>${esc(o.km||'')}</td></tr></table>
+ <h3>Travaux demandés</h3><p>${esc(o.work).replace(/\n/g,'<br>')}</p>${photos}${sig}
+ <p class="right"><b>Estimation : ${o.amount?Number(o.amount).toFixed(2)+' €':'—'}</b></p></div>`;
+ showDocument(html)
+}
+function showDocument(html){openTab('billing');$('#documentPreview').innerHTML=html+`<div class="rowBtns noPrint"><button class="btn dark" onclick="doPrint()">Imprimer / Enregistrer PDF</button></div>`;$('#documentPreview').classList.remove('hide');setTimeout(()=>$('#documentPreview').scrollIntoView({behavior:'smooth'}),100)}
+window.doPrint=()=>{if(window.Android)Android.printPage();else window.print()};
+
+// Billing
+function refreshOrderSelect(){const a=load();$('#docOrder').innerHTML='<option value="">Sans OR lié</option>'+a.slice().reverse().map(o=>`<option value="${o.id}">${esc(o.client)} — ${esc(o.plate)}</option>`).join('')}
+function addLine(desc='',qty=1,price=0){const d=document.createElement('div');d.className='line';d.innerHTML=`<input class="ld" placeholder="Prestation / pièce" value="${esc(desc)}"><input class="lq" type="number" min="0" step="0.01" value="${qty}"><input class="lp" type="number" min="0" step="0.01" value="${price}"><button type="button">×</button>`;d.querySelector('button').onclick=()=>{d.remove();calcBill()};d.querySelectorAll('input').forEach(i=>i.oninput=calcBill);$('#lines').appendChild(d);calcBill()}
+$('#addLine').onclick=()=>addLine();
+function vatRate(){const m=$('#vatMode').value;if(m==='settings')return Number(settings().vatDefault||0);return Number(m)}
+function calcBill(){let ht=0;$$('#lines .line').forEach(l=>ht+=Number(l.querySelector('.lq').value||0)*Number(l.querySelector('.lp').value||0));ht=Math.max(0,ht-Number($('#discount').value||0));let ttc=ht*(1+vatRate()/100);$('#billTotal').textContent=ttc.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';return {ht,ttc,tva:ttc-ht}}
+$('#discount').oninput=calcBill;$('#vatMode').onchange=calcBill; addLine('Main-d’œuvre',1,settings().hourly||100);
+$('#makeDoc').onclick=()=>{
+ const s=settings(), o=load().find(x=>x.id===$('#docOrder').value), c=calcBill(), type=$('#docType').value, rate=vatRate();
+ let rows='';$$('#lines .line').forEach(l=>{const d=l.querySelector('.ld').value,q=Number(l.querySelector('.lq').value||0),p=Number(l.querySelector('.lp').value||0);rows+=`<tr><td>${esc(d)}</td><td>${q}</td><td class="right">${p.toFixed(2)} €</td><td class="right">${(q*p).toFixed(2)} €</td></tr>`});
+ const client=o?`<p><b>Client :</b> ${esc(o.client)}<br><b>Véhicule :</b> ${esc(o.vehicle||'')} — ${esc(o.plate)}</p>`:'';
+ const html=`<div class="doc"><h1>${esc(s.company)}</h1><div>${esc(s.address).replace(/\n/g,'<br>')}</div><h2>${type.toUpperCase()}</h2><p>Date : ${new Date().toLocaleDateString('fr-FR')}</p>${client}
+ <table><tr><th>Désignation</th><th>Qté</th><th>PU</th><th>Total</th></tr>${rows}</table>
+ <p class="right">Total HT : ${c.ht.toFixed(2)} €<br>TVA (${rate} %) : ${c.tva.toFixed(2)} €<br><b>Total TTC : ${c.ttc.toFixed(2)} €</b></p></div>`;
+ showDocument(html)
+};
+
+// Settings / backup
+let st=settings();$('#company').value=st.company;$('#hourly').value=st.hourly;$('#vatDefault').value=String(st.vatDefault);$('#address').value=st.address;$('#companyPhone').value=st.phone;$('#companyEmail').value=st.email;
+$('#saveSettings').onclick=()=>{localStorage.setItem(SK,JSON.stringify({company:$('#company').value,hourly:Number($('#hourly').value||0),vatDefault:Number($('#vatDefault').value||0),address:$('#address').value,phone:$('#companyPhone').value,email:$('#companyEmail').value}));alert('Réglages enregistrés.')}
+$('#exportData').onclick=()=>{const data={version:2,orders:load(),settings:settings(),exportedAt:new Date().toISOString()};const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='BEL-PERF-AUTO-V2-sauvegarde.json';a.click();URL.revokeObjectURL(u)}
+$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(Array.isArray(d.orders))save(d.orders);if(d.settings)localStorage.setItem(SK,JSON.stringify(d.settings));alert('Sauvegarde importée.');location.reload()}catch(_){alert('Fichier invalide.')}}
+stats();refreshOrderSelect();
+</script>
+</body></html>
