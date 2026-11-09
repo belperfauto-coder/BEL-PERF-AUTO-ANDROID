@@ -6,13 +6,19 @@
   #invoice>.invoice-page .graphic-head{display:grid!important;grid-template-columns:51mm 1fr 83mm!important;position:relative!important;isolation:isolate!important;overflow:hidden!important;height:55mm!important;background:#fff!important}
   #invoice>.invoice-page .graphic-head .header-car-photo{display:block!important;visibility:visible!important;opacity:1!important;position:absolute!important;right:0!important;top:0!important;width:49%!important;height:100%!important;object-fit:cover!important;object-position:center!important;z-index:0!important;filter:none!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   #invoice>.invoice-page .graphic-head .doc-logo,#invoice>.invoice-page .graphic-head .doc-company,#invoice>.invoice-page .graphic-head .service-list{position:relative!important;z-index:2!important;visibility:visible!important;opacity:1!important}
-  #invoice>.invoice-page .graphic-head .service-list{display:block!important;width:82mm!important;max-width:82mm!important;background:rgba(12,15,19,.60)!important;color:#fff!important;border:1px solid #e30613!important;border-left:3px solid #e30613!important;border-radius:3mm!important;padding:2.2mm 2.5mm!important;box-sizing:border-box!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  #invoice>.invoice-page .graphic-head .service-list{display:block!important;width:82mm!important;max-width:82mm!important;background:rgba(12,15,19,.38)!important;color:#fff!important;border:1px solid #e30613!important;border-left:3px solid #e30613!important;border-radius:3mm!important;padding:2.2mm 2.5mm!important;box-sizing:border-box!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   #invoice>.invoice-page .graphic-head .service-heading{display:block!important;color:#fff!important}
   #invoice>.invoice-page .graphic-head .service-columns{display:grid!important;grid-template-columns:1fr 1fr!important;gap:1mm 2mm!important}
   #invoice>.invoice-page .graphic-head .service-columns span{display:block!important;color:#fff!important;visibility:visible!important}
 }
 /* Écran : laisser apparaître la voiture derrière les prestations. */
-.graphic-head .service-list{background:rgba(12,15,19,.58)!important}
+.graphic-head .service-list{background:rgba(12,15,19,.38)!important}
 /* Titre application : seules les lettres UTO sont blanches. */
 .top h1 .brand-a{color:var(--red)!important}
 .top h1 .brand-uto{color:#fff!important}
+
+/* V5.5.42 — titre imprimé : seules les lettres UTO sont blanches. */
+@media print{
+  #invoice>.invoice-page .doc-company h2 .brand-a{color:#e30613!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  #invoice>.invoice-page .doc-company h2 .brand-uto{color:#fff!important;-webkit-text-stroke:.18mm #111!important;text-shadow:0 0 .25mm #111!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
