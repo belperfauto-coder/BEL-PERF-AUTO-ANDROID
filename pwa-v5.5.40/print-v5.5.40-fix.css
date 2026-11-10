@@ -47,3 +47,52 @@
     z-index:4!important;
   }
 }
+
+/* V5.5.44 — correction finale du titre : BEL-PERF'AUTO uniforme, à gauche de la photo. */
+.graphic-head .doc-company h2{
+  display:block!important;
+  width:max-content!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  font-size:clamp(20px,1.75vw,30px)!important;
+  line-height:1.05!important;
+  letter-spacing:-.45px!important;
+}
+.graphic-head .doc-company h2 .brand-a,
+.graphic-head .doc-company h2 .brand-uto{
+  font:inherit!important;
+  font-size:1em!important;
+  line-height:inherit!important;
+  letter-spacing:inherit!important;
+  vertical-align:baseline!important;
+}
+.graphic-head .doc-company h2 .brand-a{color:#e30613!important}
+.graphic-head .doc-company h2 .brand-uto{color:#fff!important}
+@media print{
+  #invoice>.invoice-page .graphic-head .doc-company{
+    width:72mm!important;
+    max-width:72mm!important;
+    padding-right:1mm!important;
+    overflow:visible!important;
+  }
+  #invoice>.invoice-page .graphic-head .doc-company h2{
+    width:max-content!important;
+    max-width:none!important;
+    margin:0 0 1.2mm 0!important;
+    padding:0!important;
+    left:0!important;
+    font-size:5.15mm!important;
+    line-height:1!important;
+    letter-spacing:-.16mm!important;
+    white-space:nowrap!important;
+  }
+  #invoice>.invoice-page .graphic-head .doc-company h2 .brand-a,
+  #invoice>.invoice-page .graphic-head .doc-company h2 .brand-uto{
+    font:inherit!important;
+    font-size:1em!important;
+    line-height:inherit!important;
+    letter-spacing:inherit!important;
+    vertical-align:baseline!important;
+  }
+}
