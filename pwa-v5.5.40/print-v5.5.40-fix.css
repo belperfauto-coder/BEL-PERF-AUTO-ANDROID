@@ -22,3 +22,28 @@
   #invoice>.invoice-page .doc-company h2 .brand-a{color:#e30613!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   #invoice>.invoice-page .doc-company h2 .brand-uto{color:#fff!important;-webkit-text-stroke:.18mm #111!important;text-shadow:0 0 .25mm #111!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
+
+/* V5.5.43 — impression : garder BEL-PERF'AUTO entièrement à gauche de la photo. */
+@media print{
+  #invoice>.invoice-page .graphic-head .doc-company{
+    width:100%!important;
+    max-width:70mm!important;
+    padding-right:2mm!important;
+    box-sizing:border-box!important;
+    overflow:visible!important;
+  }
+  #invoice>.invoice-page .graphic-head .doc-company h2{
+    display:block!important;
+    width:100%!important;
+    max-width:70mm!important;
+    margin:0 0 1.2mm 0!important;
+    padding:0!important;
+    font-size:6.2mm!important;
+    line-height:1!important;
+    letter-spacing:-.18mm!important;
+    white-space:nowrap!important;
+    position:relative!important;
+    left:-1mm!important;
+    z-index:4!important;
+  }
+}
